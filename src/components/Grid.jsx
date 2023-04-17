@@ -6,6 +6,9 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 const Grid = ({ setAnchorEl, tasks }) => {
   const columns = [
     {
+      field: "id",
+      headerName: "",
+      width: 50,
       renderCell: () => (
         <MoreVertIcon
           onClick={(evt) => {
@@ -18,7 +21,7 @@ const Grid = ({ setAnchorEl, tasks }) => {
       ),
     },
     { field: "title", headerName: "Title", width: 200 },
-    { field: "description", headerName: "Description", width: 300 },
+    { field: "description", headerName: "Description", width: 400 },
     { field: "status", headerName: "Status", width: 200 },
   ];
 
@@ -37,6 +40,18 @@ const Grid = ({ setAnchorEl, tasks }) => {
         columns={columns}
         pageSizeOptions={[5]}
         disableRowSelectionOnClick
+        sx={{
+          border: "none",
+          "& .MuiDataGrid-cell": {},
+          "& .MuiDataGrid-row": {
+            marginTop: "0.5rem",
+            borderRadius: "0.5rem",
+            width: "99%",
+          },
+          "& .MuiDataGrid-columnsContainer": {
+            border: "solid 1px #e0e0e0",
+          },
+        }}
       />
     </Box>
   );
