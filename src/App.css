@@ -52,7 +52,7 @@
 .login-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: #0b1929;
   height: 100vh;
   width: 100vw;
@@ -64,8 +64,8 @@
   align-items: flex-start;
   justify-content: flex-start;
   color: white;
-  padding: 0 100px;
   gap: 20px;
+  width: 500px;
 }
 
 .login-form-container {
@@ -75,10 +75,9 @@
   justify-content: center;
   background-color: white;
   text-align: left;
-  height: 95vh;
+  height: 85vh;
   min-width: 400px;
-  border-radius: 5px;
-  margin-right: 100px;
+  border-radius: 15px;
   align-self: flex-end;
   gap: 20px;
 }
@@ -89,5 +88,5 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: 20px;
-  padding: 0 50px;
+  width: 300px;
 }
