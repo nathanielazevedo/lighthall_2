@@ -1,31 +1,23 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import { fetchTasks } from "./api";
-import Task from "./components/Task";
+import MainPage from "./MainPage";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const App = () => {
-  const [tasks, setTasks] = useState([]);
+  const [auth, setAuth] = useState(false);
+  const navigate = useNavigate();
+  const isAuthenticated = localStorage.getItem("isAuthenticated");
 
-  // Fetch Tasks on page load
   useEffect(() => {
-    const getTasks = async () => {
-      const tasksFromServer = await fetchTasks();
-      console.log(tasksFromServer);
-      setTasks(tasksFromServer);
-    };
-
-    getTasks();
-  }, []);
+    if (!isAuthenticated) {
+      navigate("login");
+    }
+  }, [isAuthenticated]);
 
   return (
-    <div className="container">
-      <h1 className="title">Tasks</h1>
-      {tasks.length > 0 ? (
-        tasks.map((task) => <Task task={task} key={task.id} />)
-      ) : (
-        <h3>No Tasks To Show</h3>
-      )}
-    </div>
+    <>
+      <MainPage setAuth={setAuth} />
+    </>
   );
 };
 
