@@ -6,8 +6,17 @@ import {
   FormControl,
   TextField,
   Button,
+  Select,
+  MenuItem,
+  InputLabel,
 } from "@mui/material";
 import { toast } from "react-toastify";
+import CloseIcon from "@mui/icons-material/Close";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
   const [formData, setFormData] = useState(selectedRow);
@@ -19,9 +28,10 @@ const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
 
   // Handles input changes
   const handleChange = (e) => {
+    console.log(e);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  console.log(formData);
   // Handles submitting the form
   const handleSubmit = () => {
     fetch(`http://localhost:3000/tasks/${selectedRow.id}`, {
@@ -65,13 +75,25 @@ const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
         },
       }}
     >
-      <DialogTitle sx={{ display: "flex", justifyContent: "space-between" }}>
+      <DialogTitle
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         Edit Task
         <div onClick={handleClose} style={{ cursor: "pointer" }}>
-          X
+          <CloseIcon />
         </div>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <FormControl
           fullWidth
           sx={{
@@ -89,29 +111,50 @@ const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
             label="Title"
             name="title"
             onChange={(e) => handleChange(e)}
-          ></TextField>
+          />
           <TextField
             value={formData.description}
             fullWidth
             label="Description"
             name="description"
             onChange={(e) => handleChange(e)}
-          ></TextField>
-          <TextField
-            value={formData.due_date}
+          />
+          <LocalizationProvider dateAdapter={AdapterDayjs} fullWidth>
+            <DatePicker
+              fullWidth
+              sx={{ width: "100%" }}
+              label="Due Date"
+              defaultValue={dayjs(formData.due_date)}
+              onChange={(newValue) =>
+                handleChange({
+                  target: { name: "due_date", value: dayjs(newValue) },
+                })
+              }
+            />
+          </LocalizationProvider>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Status</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={formData.status}
+              defaultValue={formData.status}
+              fullWidth
+              label="Status"
+              name="status"
+              onChange={(e) => handleChange(e)}
+            >
+              <MenuItem value="completed">Completed</MenuItem>
+              <MenuItem value="in_progress">In Progress</MenuItem>
+              <MenuItem value="todo">Todo</MenuItem>
+            </Select>
+          </FormControl>
+          <Button
+            variant="contained"
             fullWidth
-            label="Due Date"
-            name="due_date"
-            onChange={(e) => handleChange(e)}
-          ></TextField>
-          <TextField
-            value={formData.status}
-            name="status"
-            fullWidth
-            label="Status"
-            onChange={(e) => handleChange(e)}
-          ></TextField>
-          <Button variant="contained" fullWidth onClick={handleSubmit}>
+            onClick={handleSubmit}
+            color="success"
+          >
             Submit
           </Button>
         </FormControl>

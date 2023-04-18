@@ -67,7 +67,11 @@ const MainPage = ({ setAuth }) => {
         <div className="tasks-container">
           <div className="tasks-header">
             <h1>{user?.username}'s Tasks</h1>
-            <Button variant="contained" sx={{ alignSelf: "flex-end" }}>
+            <Button
+              variant="contained"
+              sx={{ alignSelf: "flex-end" }}
+              color="success"
+            >
               Add Task
             </Button>
           </div>
