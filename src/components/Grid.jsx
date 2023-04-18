@@ -3,16 +3,17 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/system";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-const Grid = ({ setAnchorEl, tasks }) => {
+const Grid = ({ setAnchorEl, tasks, setSelectedRow }) => {
   const columns = [
     {
       field: "id",
       headerName: "",
       width: 50,
-      renderCell: () => (
+      renderCell: (row) => (
         <MoreVertIcon
           onClick={(evt) => {
             setAnchorEl(evt.currentTarget);
+            setSelectedRow(row.row);
           }}
           sx={{
             cursor: "pointer",
@@ -41,16 +42,9 @@ const Grid = ({ setAnchorEl, tasks }) => {
         pageSizeOptions={[5]}
         disableRowSelectionOnClick
         sx={{
-          border: "none",
           "& .MuiDataGrid-cell": {},
-          "& .MuiDataGrid-row": {
-            marginTop: "0.5rem",
-            borderRadius: "0.5rem",
-            width: "99%",
-          },
-          "& .MuiDataGrid-columnsContainer": {
-            border: "solid 1px #e0e0e0",
-          },
+          "& .MuiDataGrid-row": {},
+          "& .MuiDataGrid-columnsContainer": {},
         }}
       />
     </Box>
