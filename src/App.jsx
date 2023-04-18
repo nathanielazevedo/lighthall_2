@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const App = () => {
-  const [auth, setAuth] = useState(false);
+  const setAuth = useState(false)[1];
   const navigate = useNavigate();
   const isAuthenticated = localStorage.getItem("isAuthenticated");
 
@@ -12,6 +12,7 @@ const App = () => {
     if (!isAuthenticated) {
       navigate("login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   return (

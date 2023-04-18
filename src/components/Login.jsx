@@ -1,3 +1,5 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   FormControl,
@@ -5,8 +7,6 @@ import {
   ThemeProvider,
   createTheme,
 } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -23,23 +23,24 @@ const Login = () => {
   });
 
   const handleLogin = () => {
-    const response = fetch("http://localhost:3000/login", {
+    fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-    }).then((res) => {
-      if (res.status === 200) {
-        localStorage.setItem("isAuthenticated", "true");
-        Navigate("/");
-      }
-    });
-    console.log(response);
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          localStorage.setItem("isAuthenticated", "true");
+          Navigate("/");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleSignup = () => {
-    const response = fetch("http://localhost:3000/signUp", {
+    fetch("http://localhost:3000/signUp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +52,6 @@ const Login = () => {
         Navigate("/");
       }
     });
-    console.log(response);
   };
 
   const handleSubmit = () => {

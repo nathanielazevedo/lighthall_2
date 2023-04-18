@@ -41,11 +41,6 @@ const Grid = ({ setAnchorEl, tasks, setSelectedRow }) => {
         columns={columns}
         pageSizeOptions={[5]}
         disableRowSelectionOnClick
-        sx={{
-          "& .MuiDataGrid-cell": {},
-          "& .MuiDataGrid-row": {},
-          "& .MuiDataGrid-columnsContainer": {},
-        }}
       />
     </Box>
   );

@@ -10,14 +10,18 @@ import {
 
 const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
   const [formData, setFormData] = useState(selectedRow);
+
+  // Handles closing the dialog
   const handleClose = () => {
     setShowEdit(false);
   };
 
+  // Handles input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Handles submitting the form
   const handleSubmit = () => {
     fetch(`http://localhost:3000/tasks/${selectedRow.id}`, {
       method: "PUT",
