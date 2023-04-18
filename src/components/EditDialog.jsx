@@ -7,6 +7,7 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import { toast } from "react-toastify";
 
 const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
   const [formData, setFormData] = useState(selectedRow);
@@ -29,21 +30,27 @@ const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-    }).then(async (res) => {
-      if (res.status === 200) {
-        setTasks((prev) => {
-          const newTasks = prev.map((task) => {
-            if (task.id === selectedRow.id) {
-              return formData;
-            } else {
-              return task;
-            }
+    })
+      .then(async (res) => {
+        if (res.status === 200) {
+          setTasks((prev) => {
+            const newTasks = prev.map((task) => {
+              if (task.id === selectedRow.id) {
+                return formData;
+              } else {
+                return task;
+              }
+            });
+            return newTasks;
           });
-          return newTasks;
-        });
-      }
-      setShowEdit(false);
-    });
+        }
+        toast.success("Task updated successfully");
+        setShowEdit(false);
+      })
+      .catch((err) => {
+        toast.error("Something went wrong");
+        console.log(err);
+      });
   };
 
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import App from "./App";
-import Login from "./components/Login";
+import Auth from "./components/Auth";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { createTheme } from "@mui/material/styles";
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   },
   {
     path: "login",
-    element: <Login />,
+    element: <Auth />,
   },
 ]);
 

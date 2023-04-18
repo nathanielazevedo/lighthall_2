@@ -5,12 +5,15 @@ import Logout from "./components/Logout";
 import Button from "@mui/material/Button";
 import DropDown from "./components/DropDown";
 import EditDialog from "./components/EditDialog";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MainPage = ({ setAuth }) => {
   const [tasks, setTasks] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  const user = JSON.parse(localStorage.getItem("isAuthenticated"));
 
   // Close Kebab DropDown
   const handleClose = () => {
@@ -25,9 +28,13 @@ const MainPage = ({ setAuth }) => {
       .then((res) => {
         if (res.status === 200) {
           setTasks((prev) => prev.filter((task) => task.id !== selectedRow.id));
+          toast.success("Task Deleted Successfully");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong");
+      });
   };
 
   // Fetch Tasks on page load
@@ -59,7 +66,7 @@ const MainPage = ({ setAuth }) => {
         <Logout setAuth={setAuth} />
         <div className="tasks-container">
           <div className="tasks-header">
-            <h1>Your Tasks</h1>
+            <h1>{user?.username}'s Tasks</h1>
             <Button variant="contained" sx={{ alignSelf: "flex-end" }}>
               Add Task
             </Button>
@@ -70,6 +77,7 @@ const MainPage = ({ setAuth }) => {
             setSelectedRow={setSelectedRow}
           />
         </div>
+        <ToastContainer position="bottom-right" theme="dark" />
       </div>
     </>
   );

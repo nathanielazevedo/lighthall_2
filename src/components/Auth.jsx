@@ -7,6 +7,7 @@ import {
   ThemeProvider,
   createTheme,
 } from "@mui/material";
+import { toast, ToastContainer } from "react-toastify";
 
 const theme = createTheme({
   palette: {
@@ -22,6 +23,11 @@ const Login = () => {
     password: "",
   });
 
+  const [errors, setErrors] = React.useState({
+    username: "",
+    password: "",
+  });
+
   const handleLogin = () => {
     fetch("http://localhost:3000/login", {
       method: "POST",
@@ -30,13 +36,20 @@ const Login = () => {
       },
       body: JSON.stringify(formData),
     })
-      .then((res) => {
+      .then(async (res) => {
         if (res.status === 200) {
-          localStorage.setItem("isAuthenticated", "true");
+          const response = await res.json();
+          console.log(response);
+          localStorage.setItem("isAuthenticated", JSON.stringify(response));
           Navigate("/");
+        } else {
+          toast("Invalid username or password", { type: "error" });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast("Invalid username or password", { type: "error" });
+      });
   };
 
   const handleSignup = () => {
@@ -46,15 +59,37 @@ const Login = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-    }).then((res) => {
-      if (res.status === 200) {
-        localStorage.setItem("isAuthenticated", "true");
-        Navigate("/");
-      }
-    });
+    })
+      .then(async (res) => {
+        if (res.status === 200) {
+          const response = await res.json();
+          localStorage.setItem("isAuthenticated", JSON.stringify(response));
+          Navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast("Username already exists", { type: "error" });
+      });
   };
 
   const handleSubmit = () => {
+    if (formData.username === "" && formData.password === "") {
+      setErrors({
+        ...errors,
+        username: "*Username is required",
+        password: "*Password is required",
+      });
+      return;
+    }
+    if (formData.username === "") {
+      setErrors({ ...errors, username: "*Username is required" });
+      return;
+    }
+    if (formData.password === "") {
+      setErrors({ ...errors, password: "*Password is required" });
+      return;
+    }
     if (formType === "login") {
       handleLogin();
     } else {
@@ -97,7 +132,10 @@ const Login = () => {
                   sx={{ color: "black", marginTop: "20px" }}
                   fullWidth
                   value={formData.username}
+                  error={errors.username !== ""}
+                  helperText={errors.username}
                   onChange={(e) => {
+                    setErrors({ ...errors, username: "" });
                     setFormData({ ...formData, username: e.target.value });
                   }}
                 />
@@ -106,9 +144,12 @@ const Login = () => {
                   sx={{ color: "black", marginTop: "20px" }}
                   fullWidth
                   value={formData.password}
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
+                  error={errors.password !== ""}
+                  helperText={errors.password}
+                  onChange={(e) => {
+                    setErrors({ ...errors, password: "" });
+                    setFormData({ ...formData, password: e.target.value });
+                  }}
                   type="password"
                 />
                 <Button
@@ -130,8 +171,11 @@ const Login = () => {
                   sx={{ color: "black", marginTop: "20px" }}
                   fullWidth
                   value={formData.username}
+                  error={errors.username !== ""}
+                  helperText={errors.username}
                   onChange={(e) => {
                     setFormData({ ...formData, username: e.target.value });
+                    setErrors({ ...errors, username: "" });
                   }}
                 />
                 <TextField
@@ -139,9 +183,12 @@ const Login = () => {
                   sx={{ color: "black", marginTop: "20px" }}
                   fullWidth
                   value={formData.password}
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
+                  error={errors.password !== ""}
+                  helperText={errors.password}
+                  onChange={(e) => {
+                    setFormData({ ...formData, password: e.target.value });
+                    setErrors({ ...errors, password: "" });
+                  }}
                   type="password"
                 />
                 <Button
@@ -153,7 +200,7 @@ const Login = () => {
                   }}
                   onClick={handleSubmit}
                 >
-                  SignUP
+                  SignUp
                 </Button>
               </FormControl>
             )}
@@ -162,12 +209,14 @@ const Login = () => {
               onClick={() => {
                 setFormData({ username: "", password: "" });
                 setFormType(formType === "login" ? "signup" : "login");
+                setErrors({ username: "", password: "" });
               }}
             >
               {formType === "login" ? "New here? Sign Up" : "Go to Login"}
             </h5>
           </div>
         </div>
+        <ToastContainer position="bottom-right" theme="dark" />
       </div>
     </ThemeProvider>
   );
