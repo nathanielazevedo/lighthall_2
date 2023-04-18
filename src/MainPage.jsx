@@ -7,6 +7,8 @@ import DropDown from "./components/DropDown";
 import EditDialog from "./components/EditDialog";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TopNav from "./components/TopNav";
+import { Box } from "@mui/system";
 
 const MainPage = ({ setAuth }) => {
   const [tasks, setTasks] = useState([]);
@@ -62,24 +64,35 @@ const MainPage = ({ setAuth }) => {
         handleDelete={handleDelete}
         setShowEdit={setShowEdit}
       />
+      <TopNav setAuth={setAuth} />
       <div className="container">
-        <Logout setAuth={setAuth} />
         <div className="tasks-container">
-          <div className="tasks-header">
-            <h1>{user?.username}'s Tasks</h1>
-            <Button
-              variant="contained"
-              sx={{ alignSelf: "flex-end" }}
-              color="success"
-            >
-              Add Task
-            </Button>
-          </div>
-          <Grid
-            tasks={tasks}
-            setAnchorEl={setAnchorEl}
-            setSelectedRow={setSelectedRow}
-          />
+          <Box
+            sx={{
+              height: "80vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              gap: "20px",
+            }}
+          >
+            <div className="tasks-header">
+              <h1>Your Tasks</h1>
+              <Button
+                variant="contained"
+                sx={{ alignSelf: "flex-end" }}
+                color="success"
+              >
+                Add Task
+              </Button>
+            </div>
+            <Grid
+              tasks={tasks}
+              setAnchorEl={setAnchorEl}
+              setSelectedRow={setSelectedRow}
+            />
+          </Box>
         </div>
         <ToastContainer position="bottom-right" theme="dark" />
       </div>

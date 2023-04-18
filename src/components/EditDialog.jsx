@@ -13,7 +13,6 @@ import {
 import { toast } from "react-toastify";
 import CloseIcon from "@mui/icons-material/Close";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -154,6 +153,9 @@ const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
             fullWidth
             onClick={handleSubmit}
             color="success"
+            sx={{
+              height: "50px",
+            }}
           >
             Submit
           </Button>

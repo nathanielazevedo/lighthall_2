@@ -9,7 +9,7 @@ const Logout = ({ setAuth }) => {
         sx={{
           cursor: "pointer",
           color: "white",
-          fontSize: "30px",
+          fontSize: "25px",
           alignSelf: "flex-end",
           marginRight: "30px",
           padding: "10px",
