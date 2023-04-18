@@ -28,7 +28,7 @@ const App = () => {
       {tasks.map((tasks) => {
           return (
             <div>
-              <h1>{tasks}</h1>
+            <h1>{tasks}</h1>
             </div>
           )
         })}
