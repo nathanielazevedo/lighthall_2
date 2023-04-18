@@ -39,8 +39,7 @@ const Login = () => {
     })
       .then(async (res) => {
         if (res.status === 200) {
-          const response = await res.text();
-          console.log(response);
+          const response = await res.json();
           localStorage.setItem("isAuthenticated", JSON.stringify(response));
           Navigate("/");
         } else {
@@ -63,7 +62,7 @@ const Login = () => {
     })
       .then(async (res) => {
         if (res.status === 200) {
-          const response = await res.text();
+          const response = await res.json();
           localStorage.setItem("isAuthenticated", JSON.stringify(response));
           Navigate("/");
         }
