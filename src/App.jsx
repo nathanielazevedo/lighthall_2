@@ -5,35 +5,26 @@ import Task from "./components/Task";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
-  const [newTasks, setNewTasks] = useState("")
 
+  // Fetch Tasks on page load
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks();
+      console.log(tasksFromServer);
+      setTasks(tasksFromServer);
+    };
 
-  const handleChange = (event) => {
-    setNewTasks(event.target.value)
-  }
-
-  const addTask = () => {
-    setTasks([...tasks, newTasks])
-  }
+    getTasks();
+  }, []);
 
   return (
     <div className="container">
       <h1 className="title">Tasks</h1>
-      <div className="addTask">
-        <input onChange={handleChange}/>
-        <button onClick={addTask}> Add Task</button>
-      </div>
-
-      <div className="list">
-      {tasks.map((tasks) => {
-          return (
-            <div>
-              <h1>{tasks}</h1>
-            </div>
-          )
-        })}
-      </div>
-      
+      {tasks.length > 0 ? (
+        tasks.map((task) => <Task task={task} key={task.id} />)
+      ) : (
+        <h3>No Tasks To Show</h3>
+      )}
     </div>
   );
 };
