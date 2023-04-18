@@ -1,7 +1,7 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import { fetchTasks } from "./api";
-import Task from "./components/Task";
+import MainPage from "./MainPage";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
