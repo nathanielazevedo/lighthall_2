@@ -6,12 +6,14 @@ import Grid from "./components/Grid";
 import DropDown from "./components/DropDown";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Tooltip } from "@mui/material";
+import EditDialog from "./components/EditDialog";
 
 const MainPage = ({ setAuth }) => {
   const [tasks, setTasks] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
-  console.log("selectedRow", selectedRow);
+  const [showEdit, setShowEdit] = useState(false);
+  console.log(selectedRow);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -38,10 +40,18 @@ const MainPage = ({ setAuth }) => {
   }, []);
   return (
     <>
+      {showEdit && (
+        <EditDialog
+          setShowEdit={setShowEdit}
+          selectedRow={selectedRow}
+          setTasks={setTasks}
+        />
+      )}
       <DropDown
         anchorEl={anchorEl}
         handleClose={handleClose}
         handleDelete={handleDelete}
+        setShowEdit={setShowEdit}
       />
       <div className="container">
         <Tooltip title="Logout" placement="right">
