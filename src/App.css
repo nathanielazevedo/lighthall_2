@@ -77,8 +77,9 @@
   height: 85vh;
   min-width: 400px;
   border-radius: 15px;
-  align-self: flex-end;
+  /* align-self: flex-end; */
   gap: 20px;
+  position: relative;
 }
 
 .login-form {

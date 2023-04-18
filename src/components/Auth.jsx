@@ -8,6 +8,7 @@ import {
   createTheme,
 } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 const theme = createTheme({
   palette: {
@@ -114,8 +115,26 @@ const Login = () => {
             create and manage tasks, set due dates, and even assign priority
             levels to ensure you're tackling the most important tasks first.
           </p>
+          <TaskAltIcon
+            color="success"
+            sx={{
+              fontSize: "150px",
+              alignSelf: "center",
+              marginTop: "20px",
+            }}
+          />
         </div>
         <div className="login-form-container">
+          <hr
+            style={{
+              width: "40%",
+              height: "2px",
+              borderRadius: "10px",
+              position: "absolute",
+              top: "20px",
+              backgroundColor: "#0b1929",
+            }}
+          ></hr>
           <div className="login-form">
             <h1
               style={{
@@ -154,10 +173,11 @@ const Login = () => {
                 />
                 <Button
                   variant="contained"
+                  color="success"
                   sx={{
                     marginTop: "20px",
                     height: "50px",
-                    backgroundColor: "#0b1929",
+                    // backgroundColor: "#0b1929",
                   }}
                   onClick={handleSubmit}
                 >
@@ -193,10 +213,11 @@ const Login = () => {
                 />
                 <Button
                   variant="contained"
+                  color="success"
                   sx={{
                     marginTop: "20px",
                     height: "50px",
-                    backgroundColor: "#0b1929",
+                    // backgroundColor: "#0b1929",
                   }}
                   onClick={handleSubmit}
                 >
