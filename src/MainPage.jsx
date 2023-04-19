@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchTasks } from "./api";
 import Grid from "./components/Grid";
-import Logout from "./components/Logout";
+import AddDialog from "./components/AddDialog";
 import Button from "@mui/material/Button";
 import DropDown from "./components/DropDown";
 import EditDialog from "./components/EditDialog";
@@ -14,8 +14,8 @@ const MainPage = ({ setAuth }) => {
   const [tasks, setTasks] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
+  const [showAdd, setShowAdd] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
-  const user = JSON.parse(localStorage.getItem("isAuthenticated"));
 
   // Close Kebab DropDown
   const handleClose = () => {
@@ -58,6 +58,7 @@ const MainPage = ({ setAuth }) => {
           setTasks={setTasks}
         />
       )}
+      {showAdd && <AddDialog setShowAdd={setShowAdd} setTasks={setTasks} />}
       <DropDown
         anchorEl={anchorEl}
         handleClose={handleClose}
@@ -83,6 +84,7 @@ const MainPage = ({ setAuth }) => {
                 variant="contained"
                 sx={{ alignSelf: "flex-end" }}
                 color="success"
+                onClick={() => setShowAdd(true)}
               >
                 Add Task
               </Button>
