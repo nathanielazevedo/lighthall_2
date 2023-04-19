@@ -53,7 +53,7 @@ const AddTaskDialog = ({ setShowAdd, setTasks }) => {
           const data = await res.json();
           console.log(data);
           setTasks((prev) => {
-            return [...prev];
+            return [...prev, data];
           });
         }
       })

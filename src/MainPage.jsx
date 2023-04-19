@@ -16,6 +16,7 @@ const MainPage = ({ setAuth }) => {
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  const user = JSON.parse(localStorage.getItem("isAuthenticated"));
 
   // Close Kebab DropDown
   const handleClose = () => {
@@ -42,12 +43,11 @@ const MainPage = ({ setAuth }) => {
   // Fetch Tasks on page load
   useEffect(() => {
     const getTasks = async () => {
-      const tasksFromServer = await fetchTasks();
+      const tasksFromServer = await fetchTasks(user?.id);
       setTasks(tasksFromServer);
     };
-
     getTasks();
-  }, []);
+  }, [user?.id]);
 
   return (
     <>
