@@ -50,4 +50,4 @@ const Form = ({input, setInput, todos, setTodos, editTodo, setEditTodo }) => {
     )
   }
 
-export default Form;
+export default Form ;
