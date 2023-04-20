@@ -27,7 +27,7 @@ const Grid = ({ setAnchorEl, tasks, setSelectedRow }) => {
         <MoreVertIcon
           onClick={(evt) => {
             setAnchorEl(evt.currentTarget);
-            setSelectedRow();
+            setSelectedRow(row.row);
           }}
           sx={{
             cursor: "pointer",

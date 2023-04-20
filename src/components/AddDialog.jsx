@@ -47,10 +47,10 @@ const AddTaskDialog = ({ setShowAdd, setTasks }) => {
       body: JSON.stringify(formData),
     })
       .then(async (res) => {
-        if (res.status !== 200) {
+        if (res.status === 200) {
           toast.success("Task added successfully");
           setShowAdd(false);
-          const data = await res.text();
+          const data = await res.json();
           console.log(data);
           setTasks((prev) => {
             return [...prev, data];
@@ -74,7 +74,7 @@ const AddTaskDialog = ({ setShowAdd, setTasks }) => {
         },
       }}
     >
-      <DialogTitles
+      <DialogTitle
         sx={{
           display: "flex",
           justifyContent: "space-between",
@@ -85,7 +85,7 @@ const AddTaskDialog = ({ setShowAdd, setTasks }) => {
         <div onClick={handleClose} style={{ cursor: "pointer" }}>
           <CloseIcon />
         </div>
-      </DialogTitles>
+      </DialogTitle>
       <DialogContent
         sx={{
           display: "flex",
