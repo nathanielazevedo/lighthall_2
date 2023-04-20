@@ -2,7 +2,6 @@ import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/system";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Button from "@mui/material/Button";
 
 const Grid = ({ setAnchorEl, tasks, setSelectedRow }) => {
   const getStatus = (status) => {
@@ -28,7 +27,7 @@ const Grid = ({ setAnchorEl, tasks, setSelectedRow }) => {
         <MoreVertIcon
           onClick={(evt) => {
             setAnchorEl(evt.currentTarget);
-            setSelectedRow(row.row);
+            setSelectedRow();
           }}
           sx={{
             cursor: "pointer",

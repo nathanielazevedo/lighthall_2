@@ -33,7 +33,7 @@ const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
   console.log(formData);
   // Handles submitting the form
   const handleSubmit = () => {
-    fetch(`http://localhost:3000/tasks/${selectedRow.id}`, {
+    fetch(`http://localhost:5000/tasks/${selectedRow.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
       body: JSON.stringify(formData),
     })
       .then(async (res) => {
-        if (res.status === 200) {
+        if (res.status !== 200) {
           setTasks((prev) => {
             const newTasks = prev.map((task) => {
               if (task.id === selectedRow.id) {
@@ -54,7 +54,7 @@ const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
           });
         }
         toast.success("Task updated successfully");
-        setShowEdit(false);
+        setShowEdit(true);
       })
       .catch((err) => {
         toast.error("Something went wrong");

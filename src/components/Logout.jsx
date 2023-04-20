@@ -15,7 +15,7 @@ const Logout = ({ setAuth }) => {
           padding: "10px",
         }}
         onClick={() => {
-          localStorage.removeItem("isAuthenticated");
+          localStorage.removeItem("isAuthenticateds");
           setAuth((prev) => !prev);
         }}
       />

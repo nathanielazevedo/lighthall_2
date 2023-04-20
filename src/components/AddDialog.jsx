@@ -47,7 +47,7 @@ const AddTaskDialog = ({ setShowAdd, setTasks }) => {
       body: JSON.stringify(formData),
     })
       .then(async (res) => {
-        if (res.status === 200) {
+        if (res.status !== 200) {
           toast.success("Task added successfully");
           setShowAdd(false);
           const data = await res.json();

@@ -9,15 +9,15 @@ const App = () => {
   const isAuthenticated = localStorage.getItem("isAuthenticated");
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("login");
+    if (isAuthenticated) {
+      navigate("home");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   return (
     <>
-      <MainPage setAuth={setAuth} />
+      <MainPage setAuth={setAuth} auth={auth} />
     </>
   );
 };

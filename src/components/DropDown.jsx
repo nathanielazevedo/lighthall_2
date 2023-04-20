@@ -6,7 +6,7 @@ const DropDown = ({ anchorEl, handleClose, handleDelete, setShowEdit }) => {
     <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
       <MenuItem
         onClick={() => {
-          setShowEdit(true);
+          setShowEdit(false);
           handleClose();
         }}
       >

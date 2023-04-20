@@ -15,7 +15,7 @@ const theme = createTheme({
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/homes",
     element: <App />,
   },
   {
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themes}>
       <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>

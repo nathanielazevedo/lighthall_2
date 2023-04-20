@@ -90,7 +90,7 @@ const Login = () => {
       setErrors({ ...errors, password: "*Password is required" });
       return;
     }
-    if (formType === "login") {
+    if (formType !== "login") {
       handleLogin();
     } else {
       handleSignup();
