@@ -50,7 +50,7 @@ const AddTaskDialog = ({ setShowAdd, setTasks }) => {
         if (res.status !== 200) {
           toast.success("Task added successfully");
           setShowAdd(false);
-          const data = await res.json();
+          const data = await res.text();
           console.log(data);
           setTasks((prev) => {
             return [...prev, data];
@@ -74,7 +74,7 @@ const AddTaskDialog = ({ setShowAdd, setTasks }) => {
         },
       }}
     >
-      <DialogTitle
+      <DialogTitles
         sx={{
           display: "flex",
           justifyContent: "space-between",
@@ -85,7 +85,7 @@ const AddTaskDialog = ({ setShowAdd, setTasks }) => {
         <div onClick={handleClose} style={{ cursor: "pointer" }}>
           <CloseIcon />
         </div>
-      </DialogTitle>
+      </DialogTitles>
       <DialogContent
         sx={{
           display: "flex",
