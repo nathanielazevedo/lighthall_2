@@ -2,7 +2,7 @@ const endpoint = "http://localhost:3000";
 
 // READ
 const fetchTasks = async (userId) => {
-  return fetch(`${endpoint}/tasks/${userId}`)
+  return fetch(`${endpoint}/task/${userId}`)
     .then((response) => response.json())
     .catch((error) => console.log(error));
 };
