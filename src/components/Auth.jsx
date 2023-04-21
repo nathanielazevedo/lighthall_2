@@ -19,6 +19,7 @@ const theme = createTheme({
 const Login = () => {
   const [formType, setFormType] = React.useState("login");
   const Navigate = useNavigate();
+  const [disabled, setDisabled] = React.useState(false);
   const [formData, setFormData] = React.useState({
     username: "",
     password: "",
@@ -30,6 +31,8 @@ const Login = () => {
   });
 
   const handleLogin = () => {
+    setDisabled(true);
+    toast.info("Free Servers are slow, be patient", { autoClose: 2000 });
     fetch("https://lighthall-2-back.onrender.com/login", {
       method: "POST",
       headers: {
@@ -49,9 +52,12 @@ const Login = () => {
       .catch((err) => {
         toast("Invalid username or password", { type: "error" });
       });
+    setDisabled(false);
   };
 
   const handleSignup = () => {
+    setDisabled(true);
+    toast.info("Free Servers are slow, be patient", { autoClose: 2000 });
     fetch("https://lighthall-2-back.onrender.com/signUp", {
       method: "POST",
       headers: {
@@ -69,6 +75,7 @@ const Login = () => {
       .catch((err) => {
         toast("Username already exists", { type: "error" });
       });
+    setDisabled(false);
   };
 
   const handleSubmit = () => {
@@ -217,6 +224,7 @@ const Login = () => {
                     // backgroundColor: "#0b1929",
                   }}
                   onClick={handleSubmit}
+                  disabled={disabled}
                 >
                   SignUp
                 </Button>
