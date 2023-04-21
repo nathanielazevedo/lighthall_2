@@ -30,7 +30,7 @@ const Login = () => {
   });
 
   const handleLogin = () => {
-    fetch("http://localhost:3000/login", {
+    fetch("https://lighthall-2-back.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ const Login = () => {
   };
 
   const handleSignup = () => {
-    fetch("http://localhost:3000/signUp", {
+    fetch("https://lighthall-2-back.onrender.com/signUp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
