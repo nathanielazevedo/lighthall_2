@@ -1,4 +1,9 @@
-const endpoint = "http://localhost:3000";
+let endpoint = undefined;
+if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+  endpoint = "http://localhost:3000";
+} else {
+  endpoint = "https://lighthall-2-back.onrender.com";
+}
 
 // READ
 const fetchTasks = async (userId) => {
@@ -16,24 +21,37 @@ const addTask = async (task) => {
     },
     body: JSON.stringify(task),
   })
-    .then((response) => response.json())
-    .catch((error) => console.log(error));
+    .then(async (res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        throw new Error("Something went wrong");
+      }
+    })
+    .catch((err) => {
+      throw new Error("Something went wrong");
+    });
 };
 
 // DELETE
 const deleteTask = async (taskId) => {
-  return fetch(`${endpoint}/tasks/${taskId}`, {
+  fetch(`${endpoint}/tasks/${taskId}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
   })
-    .then((response) => response.json())
-    .catch((error) => console.log(error));
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        throw new Error("Something went wrong");
+      }
+    })
+    .catch((err) => {
+      throw new Error("Something went wrong");
+    });
 };
 
 // UPDATE
-const updateTask = async (taskId) => {
+const updateTask = async (task) => {
   return fetch(`${endpoint}/tasks/${task.id}`, {
     method: "PUT",
     headers: {
@@ -41,8 +59,16 @@ const updateTask = async (taskId) => {
     },
     body: JSON.stringify(task),
   })
-    .then((response) => response.json())
-    .catch((error) => console.log(error));
+    .then((response) => {
+      if (response.status === 200) {
+        return "success";
+      } else {
+        throw new Error("Something went wrong");
+      }
+    })
+    .catch((error) => {
+      throw new Error("Something went wrong");
+    });
 };
 
 export { fetchTasks, addTask, deleteTask, updateTask };

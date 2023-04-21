@@ -17,10 +17,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    ErrorBoundary: () => <div>Something went wrong</div>,
   },
   {
     path: "login",
     element: <Auth />,
+    ErrorBoundary: () => <div>Something went wrong</div>,
   },
 ]);
 

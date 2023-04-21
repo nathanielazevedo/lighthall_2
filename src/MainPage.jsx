@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchTasks } from "./api";
+import { deleteTask, fetchTasks } from "./api";
 import Grid from "./components/Grid";
 import AddDialog from "./components/AddDialog";
 import Button from "@mui/material/Button";
@@ -24,20 +24,14 @@ const MainPage = ({ setAuth }) => {
   };
 
   // Delete Task
-  const handleDelete = () => {
-    fetch(`http://localhost:3000/tasks/${selectedRow.id}`, {
-      method: "DELETE",
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          setTasks((prev) => prev.filter((task) => task.id !== selectedRow.id));
-          toast.success("Task Deleted Successfully");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Something went wrong");
-      });
+  const handleDelete = async () => {
+    try {
+      await deleteTask(selectedRow.id);
+      setTasks((prev) => prev.filter((task) => task.id !== selectedRow.id));
+      toast.success("Task Deleted Successfully");
+    } catch {
+      toast.error("Failed to Delete Task");
+    }
   };
 
   // Fetch Tasks on page load

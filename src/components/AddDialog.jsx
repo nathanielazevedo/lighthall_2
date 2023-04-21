@@ -16,6 +16,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { addTask } from "../api";
 
 const AddTaskDialog = ({ setShowAdd, setTasks }) => {
   const user = JSON.parse(localStorage.getItem("isAuthenticated"));
@@ -38,27 +39,15 @@ const AddTaskDialog = ({ setShowAdd, setTasks }) => {
   };
 
   // Handles submitting the form
-  const handleSubmit = () => {
-    fetch("http://localhost:3000/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then(async (res) => {
-        if (res.status === 200) {
-          toast.success("Task added successfully");
-          setShowAdd(false);
-          const data = await res.json();
-          console.log(data);
-          setTasks((prev) => {
-            return [...prev, data];
-          });
-        }
+  const handleSubmit = async () => {
+    await addTask(formData)
+      .then((res) => {
+        setTasks((prev) => [...prev, res]);
+        toast.success("Task Added Successfully");
+        setShowAdd(false);
       })
       .catch((err) => {
-        toast.error("Something went wrong");
+        toast.error("Failed to Add Task");
       });
   };
 

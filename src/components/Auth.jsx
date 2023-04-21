@@ -47,7 +47,6 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
         toast("Invalid username or password", { type: "error" });
       });
   };
@@ -68,7 +67,6 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
         toast("Username already exists", { type: "error" });
       });
   };

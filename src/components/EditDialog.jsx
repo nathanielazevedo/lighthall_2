@@ -16,6 +16,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { updateTask } from "../api";
 
 const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
   const [formData, setFormData] = useState(selectedRow);
@@ -27,38 +28,30 @@ const EditDialog = ({ selectedRow, setShowEdit, setTasks }) => {
 
   // Handles input changes
   const handleChange = (e) => {
-    console.log(e);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  console.log(formData);
+
   // Handles submitting the form
-  const handleSubmit = () => {
-    fetch(`http://localhost:3000/tasks/${selectedRow.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
+  const handleSubmit = async () => {
+    await updateTask(formData)
       .then(async (res) => {
-        if (res.status === 200) {
-          setTasks((prev) => {
-            const newTasks = prev.map((task) => {
-              if (task.id === selectedRow.id) {
-                return formData;
-              } else {
-                return task;
-              }
-            });
-            return newTasks;
+        console.log("yes");
+        setTasks((prev) => {
+          const newTasks = prev.map((task) => {
+            if (task.id === selectedRow.id) {
+              return formData;
+            } else {
+              return task;
+            }
           });
-        }
+          return newTasks;
+        });
         toast.success("Task updated successfully");
         setShowEdit(false);
       })
       .catch((err) => {
-        toast.error("Something went wrong");
         console.log(err);
+        toast.error("Something went wrong");
       });
   };
 

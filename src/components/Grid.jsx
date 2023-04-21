@@ -5,7 +5,6 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const Grid = ({ setAnchorEl, tasks, setSelectedRow }) => {
   const getStatus = (status) => {
-    console.log(status);
     switch (status) {
       case "todo":
         return <Box sx={{ color: "red" }}>To Do</Box>;
