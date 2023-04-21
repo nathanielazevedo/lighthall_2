@@ -58,7 +58,7 @@ const Login = () => {
   const handleSignup = () => {
     setDisabled(true);
     toast.info("Free Servers are slow, be patient", { autoClose: 2000 });
-    fetch("https://lighthall-2-back.onrender.com/signUp", {
+    fetch("http://localhost:3000/signUp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,6 +68,7 @@ const Login = () => {
       .then(async (res) => {
         if (res.status === 200) {
           const response = await res.json();
+          console.log(response);
           localStorage.setItem("isAuthenticated", JSON.stringify(response));
           Navigate("/");
         }
