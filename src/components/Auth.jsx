@@ -58,7 +58,7 @@ const Login = () => {
   const handleSignup = () => {
     setDisabled(true);
     toast.info("Free Servers are slow, be patient", { autoClose: 2000 });
-    fetch("http://localhost:3000/signUp", {
+    fetch("https://lighthall-2-back.onrender.com/signUp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
