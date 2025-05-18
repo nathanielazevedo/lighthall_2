@@ -2,7 +2,7 @@ let endpoint = undefined;
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
   endpoint = "http://localhost:3000";
 } else {
-  endpoint = "https://lighthall-2-back.onrender.com";
+  endpoint = "https://lighthall2back-production.up.railway.app";
 }
 
 // READ

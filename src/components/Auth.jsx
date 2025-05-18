@@ -10,6 +10,8 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
+const url = "https://lighthall2back-production.up.railway.app";
+
 const theme = createTheme({
   palette: {
     mode: "light",
@@ -33,7 +35,7 @@ const Login = () => {
   const handleLogin = () => {
     setDisabled(true);
     toast.info("Free Servers are slow, be patient", { autoClose: 2000 });
-    fetch("https://lighthall-2-back.onrender.com/login", {
+    fetch(`${url}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +60,7 @@ const Login = () => {
   const handleSignup = () => {
     setDisabled(true);
     toast.info("Free Servers are slow, be patient", { autoClose: 2000 });
-    fetch("https://lighthall-2-back.onrender.com/signUp", {
+    fetch(`${url}/signUp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
